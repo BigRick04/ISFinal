@@ -1,0 +1,51 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar styling */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    border-bottom: 1px solid #555;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+/* Content styling */
+.content {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+h2 {
+    color: #333;
+}
+
+/* Add some space to each section */
+section {
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+}

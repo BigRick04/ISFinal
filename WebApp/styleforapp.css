@@ -1,0 +1,70 @@
+/* General reset to remove margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and canvas styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #333; /* Dark background for contrast */
+    font-family: Arial, sans-serif;
+    flex-direction: column;
+    position: relative; /* Allow the sidebar to be positioned relative to the page */
+}
+
+/* Game container with the canvas and restart button */
+#gameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Sidebar positioning */
+#sidebar {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Link inside the sidebar */
+#sidebar a {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 10px;
+}
+
+#sidebar a:hover {
+    background-color: #444; /* Change background color when hovering */
+    border-radius: 5px;
+}
+
+/* Styling for the game canvas */
+canvas {
+    border: 2px solid white; /* Adds a border around the game canvas */
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}

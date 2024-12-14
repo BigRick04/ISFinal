@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        canvas {
+            border: 2px solid black;
+            background-color: #000;
+        }
+        h1 {
+            position: absolute;
+            top: 20px;
+            font-size: 30px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Snake Game</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+        let snake = [{x: 10, y: 10}];
+        let direction = 'RIGHT';
+        let food = {x: 5, y: 5};
+        let score = 0;
+        let gameInterval;
+
+        document.addEventListener('keydown', changeDirection);
+
+        function startGame() {
+            gameInterval = setInterval(updateGame, 100);
+        }
+
+        function updateGame() {
+            moveSnake();
+            if (checkCollision()) {
+                clearInterval(gameInterval);
+                alert("Game Over! Final Score: " + score);
+                return;
+            }
+            if (eatFood()) {
+                score++;
+                spawnFood();
+            }
+            drawGame();
+        }
+
+        function drawGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawSnake();
+            drawFood();
+            drawScore();
+        }
+
+        function drawSnake() {
+            snake.forEach(segment => {
+                ctx.fillStyle = 'lime';
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+            });
+        }
+
+        function drawFood() {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
+        }
+
+        function drawScore() {
+            ctx.fillStyle = 'white';
+            ctx.font = '20px Arial';
+            ctx.fillText('Score: ' + score, 10, 20);
+        }
+
+        function moveSnake() {
+            const head = { ...snake[0] };
+            if (direction === 'UP') head.y -= 1;
+            if (direction === 'DOWN') head.y += 1;
+            if (direction === 'LEFT') head.x -= 1;
+            if (direction === 'RIGHT') head.x += 1;
+
+            snake.unshift(head);
+            snake.pop();
+        }
+
+        function changeDirection(event) {
+            if (event.key === "ArrowUp" && direction !== 'DOWN') {
+                direction = 'UP';
+            }
+            if (event.key === "ArrowDown" && direction !== 'UP') {
+                direction = 'DOWN';
+            }
+            if (event.key === "ArrowLeft" && direction !== 'RIGHT') {
+                direction = 'LEFT';
+            }
+            if (event.key === "ArrowRight" && direction !== 'LEFT') {
+                direction = 'RIGHT';
+            }
+        }
+
+        function checkCollision() {
+            const head = snake[0];
+            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                return true;
+            }
+            for (let i = 1; i < snake.length; i++) {
+                if (snake[i].x === head.x && snake[i].y === head.y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function eatFood() {
+            const head = snake[0];
+            if (head.x === food.x && head.y === food.y) {
+                snake.push({ ...head });
+                return true;
+            }
+            return false;
+        }
+
+        function spawnFood() {
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount),
+            };
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
